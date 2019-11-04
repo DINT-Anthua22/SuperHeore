@@ -5,11 +5,12 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace Superheroes
 {
-    class SuperHeroe : INotifyPropertyChanged, IValueConverter
+    class SuperHeroe : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -27,11 +28,14 @@ namespace Superheroes
                 if (_nombre != value) 
                 { 
                     _nombre = value; 
-                    //NotifyPropertyChanged("Nombre");
+                    NotifyPropertyChanged("Nombre");
                 } 
             }
             
         }
+
+       
+
 
         string _enemigo;
         public string Enemigo
@@ -52,58 +56,39 @@ namespace Superheroes
         {
             get { return _vengador; }
             set { 
-                if(_vengador || _vengador==false)
-                {
-                    _vengador = value;
+                   _vengador = value;
                     NotifyPropertyChanged("Vengador");
-                } 
+                
             }
             
         }
 
-        string _foto;
-        public string Foto
+        string _otrafoto;
+        public string Otrafoto
         {
-            get { return _foto; }
-
+            get { return _otrafoto; }
             set
             {
-                if(_foto!= null)
+                if (_otrafoto != value)
                 {
-                    _foto = value;
-                    NotifyPropertyChanged("Foto");
+                    _otrafoto = value; NotifyPropertyChanged("Otrafoto");
                 }
             }
         }
+
+        
 
         public static SuperHeroe GetSample()
         {
             SuperHeroe heroe = new SuperHeroe();
             heroe.Nombre = "Daredevil";
             heroe.Enemigo = "Kingping";
-            heroe.Foto = @"https://dam.smashmexico.com.mx/wp-content/uploads/2018/08/27150601/daredevilbio_portada.jpg";
+            heroe.Otrafoto = @"https://dam.smashmexico.com.mx/wp-content/uploads/2018/08/27150601/daredevilbio_portada.jpg";
             heroe.Vengador = false;
 
             return heroe;
         }
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            
-            if (value is bool)
-            {
-                if ((bool)value)
-                    return "Si";
-                else
-                    return "No";
-            }
-
-            return "No";
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

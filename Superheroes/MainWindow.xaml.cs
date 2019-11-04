@@ -21,14 +21,16 @@ namespace Superheroes
     public partial class MainWindow : Window
     {
         SuperHeroe hero;
+      
         public MainWindow()
         {
             InitializeComponent();
-            hero = SuperHeroe.GetSample();
+            hero = SuperHeroe.GetSample();      
             NombreTextBlock.DataContext = hero;
             EnemigoTextBlock.DataContext = hero;
             VengadoresTextBlock.DataContext = hero;
-            FotoImage.DataContext = hero; //no me coge la propiedad
+            FotoImage.DataContext = hero;
+            
             
         }
 
@@ -37,6 +39,8 @@ namespace Superheroes
             NombreTextBox.DataContext = hero;
             EnemigoTextBox.DataContext = hero;
             FotoTexBox.DataContext = hero;
+            VengadoresCheckBox.DataContext = hero;
+         
 
 
         }

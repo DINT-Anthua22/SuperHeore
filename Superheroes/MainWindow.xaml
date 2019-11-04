@@ -4,34 +4,36 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Superheroes"
-        Background="{Binding Path=Fondo}"
+       
         mc:Ignorable="d"
         
-        Title="MainWindow" Height="450" Width="800">
+        Title="SuperHeroe" Height="450" Width="800"
+        >
     <Window.Resources>
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="Margin" Value="0,5"></Setter>
         </Style>
         <local:Configuracion x:Key="config" AjusteImagen="Fill" Fondo="Blue"></local:Configuracion>
-        <local:SuperHeroe x:Key="conversor"></local:SuperHeroe>
-        
+        <local:ConvertidorVengador x:Key="conversor"/>
+
+
     </Window.Resources>
-    <DockPanel Background="{Binding Path=Fondo}" DataContext="{StaticResource config}">
+    <DockPanel Background="{Binding Path=Fondo, Source={StaticResource config}}">
         <StackPanel Margin="20,5,4,0" DockPanel.Dock="Right" Orientation="Vertical" Width="208">
             <TextBlock>Nombre</TextBlock>
-            <TextBox x:Name="NombreTextBox" Text="{Binding Path=Nombre}"></TextBox>
+            <TextBox x:Name="NombreTextBox" Text="{Binding Path=Nombre,UpdateSourceTrigger=PropertyChanged }"></TextBox>
             <TextBlock>Enemigo</TextBlock>
-            <TextBox x:Name="EnemigoTextBox" Text="{Binding Path=Enemigo}"></TextBox>
+            <TextBox x:Name="EnemigoTextBox" Text="{Binding Path=Enemigo,UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <TextBlock>Foto</TextBlock>
-            <TextBox x:Name="FotoTexBox" Text="{Binding Path=Foto}"></TextBox>
+            <TextBox x:Name="FotoTexBox" Text="{Binding Path=Otrafoto, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <StackPanel Orientation="Horizontal" Margin="0,5">
-                <CheckBox x:Name="VengadoresCheckBox" Margin="0,5" IsChecked="{Binding ElementName=VengadoresTextBlock, Path=Text, Converter={StaticResource conversor}}"></CheckBox>
+                <CheckBox x:Name="VengadoresCheckBox" Margin="0,5" IsChecked="{Binding Path=Vengador, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
                 <TextBlock Margin="2">¿Vengador?</TextBlock>
             </StackPanel>
-            <Button   x:Name="EditarButton" Margin="0,0,75,0" Click="EditarButton_Click">Editar</Button>
+            <Button x:Name="EditarButton" Margin="0,0,75,0" Click="EditarButton_Click">Editar</Button>
             
         </StackPanel>
-        <Grid DockPanel.Dock="Bottom">
+        <Grid DockPanel.Dock="Bottom" Margin="20,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="5*"></ColumnDefinition>
@@ -46,10 +48,14 @@
             <TextBlock Grid.Row="1" Grid.Column="0">Enemigo:</TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="1" x:Name="EnemigoTextBlock" Text="{Binding Path=Enemigo}"></TextBlock>
             <TextBlock Grid.Row="2" Grid.Column="0">¿Vengadores?</TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="VengadoresTextBlock" Text="{Binding Path=Vengador}"></TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="VengadoresTextBlock" Text="{Binding  Path=Vengador, Converter={StaticResource conversor}}"></TextBlock>
         </Grid>
-        <Image x:Name="FotoImage" Source="{Binding Path=Foto}"></Image>
-       <!--Stretch="{Binding Path=AjusteImagen}" DataContext="{StaticResource config}"--> 
+
+        <Image x:Name="FotoImage"  Stretch="{Binding Source={StaticResource config}, Path=AjusteImagen}"  Source="{Binding Path=Otrafoto}">
+
+        </Image>
+      
+      
         
     </DockPanel>
 </Window>
